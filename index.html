@@ -25,6 +25,7 @@
         padding-left: 5px;
         padding-right: 5px;
       }
+      /* TODO type color */
     </style>
 
     <title>Hello, world!</title>
@@ -53,12 +54,22 @@
       ];
 
       let tokens = [
-        { text: 'Good',     type: 'ADJ' },
-        { text: 'morning',  type: 'NOUN' },
-        { text: ',',        type: 'PUNCT' },
-        { text: 'Friday',   type: 'NOUN' },
-        { text: '.',        type: 'PUNCT' },
+        { text: 'Good',     type: 'ADJ',    sub_type: 'SUB', },
+        { text: 'morning',  type: 'NOUN',   sub_type: 'SUB', },
+        { text: ',',        type: 'PUNCT',  sub_type: 'SUB', },
+        { text: 'Friday',   type: 'NOUN',   sub_type: 'SUB', },
+        { text: '.',        type: 'PUNCT',  sub_type: 'SUB', },
       ];
+
+      /*
+      let outputs = [
+        { text: 'Good',     type: 'ADJ',    default: 'ADJ' },
+        { text: 'morning',  type: 'NOUN',   default: 'NOUN' },
+        { text: ',',        type: 'PUNCT',  default: 'PUNCT' },
+        { text: 'Friday',   type: 'NOUN',   default: 'NOUN' },
+        { text: '.',        type: 'PUNCT',  default: 'PUNCT' },
+      ];
+      */
 
       // render
       $('.output').html('');
@@ -69,6 +80,9 @@
             <div class='type'>
               <select>
                 <option>${token.type}</option>
+              </select>
+              <select>
+                <option>${token.sub_type}</option>
               </select>
             </div>
           </div>
