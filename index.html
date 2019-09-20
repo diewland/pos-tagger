@@ -8,31 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <style>
-      .token {
-        float: left;
-        text-align: center;
-        border: 1px solid #000;
-        margin: 5px;
-      }
-      .token .text {
-        font-size: 150%;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-      .token .type {
-        background-color: #CCC;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-      /* TODO type color */
-    </style>
+    <!-- App Style -->
+    <link rel="stylesheet" href="./style.css">
 
-    <title>Hello, world!</title>
+    <title>POS Tagger</title>
   </head>
   <body>
 
-    <div class='container'>
+    <div class='container-fluid'>
 
       <h1>POS Tagger</h1>
       <div class='output'></div>
@@ -41,53 +24,27 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <!-- App Script -->
+    <script src='./config.js'></script>
+    <script src='./app.js'></script>
     <script>
 
-      let type_config = [
-        [ 'ADJ', 'red', ],
-        [ 'NOUN', 'green', ],
-        [ 'PUNCT', 'blue', ],
-      ];
+      // load dev json
+      $.ajax({
+        url: './res/test.json',
+        success: (df) => {
+          simdata = to_simple_format(df);
+          render(simdata);
 
-      let tokens = [
-        { text: 'Good',     type: 'ADJ',    sub_type: 'SUB', },
-        { text: 'morning',  type: 'NOUN',   sub_type: 'SUB', },
-        { text: ',',        type: 'PUNCT',  sub_type: 'SUB', },
-        { text: 'Friday',   type: 'NOUN',   sub_type: 'SUB', },
-        { text: '.',        type: 'PUNCT',  sub_type: 'SUB', },
-      ];
-
-      /*
-      let outputs = [
-        { text: 'Good',     type: 'ADJ',    default: 'ADJ' },
-        { text: 'morning',  type: 'NOUN',   default: 'NOUN' },
-        { text: ',',        type: 'PUNCT',  default: 'PUNCT' },
-        { text: 'Friday',   type: 'NOUN',   default: 'NOUN' },
-        { text: '.',        type: 'PUNCT',  default: 'PUNCT' },
-      ];
-      */
-
-      // render
-      $('.output').html('');
-      tokens.forEach((token) => {
-        $('.output').append(`
-          <div class='token'>
-            <div class='text'>${token.text}</div>
-            <div class='type'>
-              <select>
-                <option>${token.type}</option>
-              </select>
-              <select>
-                <option>${token.sub_type}</option>
-              </select>
-            </div>
-          </div>
-        `);
-      });
+          // update global for debug
+          window.DATA0 = df;
+          window.DATA = simdata;
+        },
+      })
 
     </script>
   </body>
