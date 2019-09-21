@@ -102,14 +102,36 @@ function render(rows){
 
   // bind main type cmb
   $('.type .main').change((evt) => {
+    // gather dom
     let $main = $(evt.target);
-    let main_type = $main.val();
     let $sub = $main.next('select');
+    let $item = $main.parents('.token');
+
+    // extract val
+    let main_type = $main.val();
     let sub_list = TYPE_HASH[main_type] || [];
+
+    // update sub list
     $sub.html('');
     sub_list.forEach((s) => {
       $sub.append(`<option value='${s}'>${s}</option>`);
     });
-    set_color($main.parents('.token'), main_type);
+
+    // set bgcolor
+    set_color($item, main_type);
+  });
+
+  // bind sub type cmb
+  $('.type .sub').change((evt) => {
+    // gather dom
+    let $sub = $(evt.target);
+    let $item = $sub.parents('.token');
+
+    // extract val
+    let sub_type = $sub.val();
+
+    // TODO set to subtag
+
+    console.log(sub_type);
   });
 }
