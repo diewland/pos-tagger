@@ -1,7 +1,9 @@
 // ##### AUTO-GEN CONFIG ##### 
+
 let TYPE_HASH = {};
 let TYPE_COLOR = {};
 let MAIN_TYPE_CMB = '';
+
 TYPE_LIST.forEach((t) => {
   TYPE_HASH[t.name] = t.sub;
   TYPE_COLOR[t.name] = t.color;
@@ -12,12 +14,16 @@ TYPE_LIST.forEach((t) => {
 
 function to_simple_format(df){
   let data = [];
-  for(let i in df.sentence){
-    data.push({
-      sentence: df.sentence[i],
-      token:    df.token[i],
-      pos_tag:  df.pos_tag[i],
+  for(let no in df.sentence){                       // loop by sentense
+    let tokens = df.pos_tag[no].map((arr, i) => {   // build tokens
+      let type = (df.done || df.pos_tag)[no][i][1]; // find type from done, pos_tag in order
+      return {
+        text: arr[0],
+        type: type,
+        default_type: arr[1],
+      };
     });
+    data.push(tokens);
   }
   return data;
 }
@@ -44,7 +50,7 @@ function set_color($item, main_type){
 
 function render_row(i, row){
   let row_html = '';
-  row.pos_tag.forEach((token, j) => {
+  row.forEach((token, j) => {
     row_html += `
       <div id='item_${i}_${j}' class='token'>
         <div class='text'></div>
@@ -59,13 +65,13 @@ function render_row(i, row){
 }
 
 function update_row(i, row){
-  row.pos_tag.forEach((token, j) => {
+  row.forEach((token, j) => {
     // get current item
     $item = $(`div#item_${i}_${j}`);
     // update text
-    $item.find('.text').html(token[0]);
+    $item.find('.text').html(token.text);
     // update type
-    let sub_type = token[1];
+    let sub_type = token.type;
     let tt = find_type(sub_type);
     if(tt){
       // update main type
@@ -100,7 +106,7 @@ function render(rows){
     update_row(i, row);
   });
 
-  // bind main type cmb
+  // bind main-type combobox
   $('.type .main').change((evt) => {
     // gather dom
     let $main = $(evt.target);
@@ -111,7 +117,7 @@ function render(rows){
     let main_type = $main.val();
     let sub_list = TYPE_HASH[main_type] || [];
 
-    // update sub list
+    // update sub-list
     $sub.html('');
     sub_list.forEach((s) => {
       $sub.append(`<option value='${s}'>${s}</option>`);
@@ -121,17 +127,19 @@ function render(rows){
     set_color($item, main_type);
   });
 
-  // bind sub type cmb
+  // bind sub-type combobox
   $('.type .sub').change((evt) => {
     // gather dom
     let $sub = $(evt.target);
     let $item = $sub.parents('.token');
 
-    // extract val
+    // find row, col
+    let rc = $item.attr('id').split('_');
+    let row = rc[1]*1;
+    let col = rc[2]*1;
+
+    // update sub-type
     let sub_type = $sub.val();
-
-    // TODO set to subtag
-
-    console.log(sub_type);
+    DATA[row][col].type = sub_type;
   });
 }

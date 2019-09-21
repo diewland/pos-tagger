@@ -32,14 +32,11 @@
 
       // load dev json
       $.ajax({
-        url: './res/test.json',
+        url: './sample/test.json',
         success: (df) => {
-          simdata = to_simple_format(df);
-          render(simdata);
-
-          // update global for debug
-          window.DATA0 = df;
-          window.DATA = simdata;
+          window.DF = df;
+          window.DATA = to_simple_format(df);
+          render(DATA);
         },
       })
 
