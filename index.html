@@ -16,7 +16,10 @@
   <body>
 
     <div class='container-fluid'>
-      <h1>POS Tagger</h1>
+      <div class='p-3'>
+        <input type='file' id='file_json'>
+        <input type='button' id='btn_save_as' value='Save As'>
+      </div>
       <div class='output'></div>
     </div>
 
@@ -31,6 +34,7 @@
     <script>
 
       // load dev json
+      /*
       $.ajax({
         url: './sample/test.json',
         success: (df) => {
@@ -38,7 +42,21 @@
           window.DATA = to_simple_format(df);
           render(DATA);
         },
-      })
+      });
+      */
+
+      $('#file_json').change((evt) => {
+        let files = evt.target.files;
+        if(files.length == 1){
+          let fileReader = new FileReader();
+          fileReader.onload = function(fileLoadedEvent){
+            let result = fileLoadedEvent.target.result;
+            console.log(result);
+            eval(result); // TODO
+          };
+          fileReader.readAsText(files[0], "UTF-8");
+        }
+      });
 
     </script>
   </body>

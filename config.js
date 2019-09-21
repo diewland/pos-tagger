@@ -1,3 +1,5 @@
+let MOD_COLUMN = 'mfec_rd'; // modified column
+
 let TYPE_LIST = [
   { name: 'ADV',  color: '#f55',   sub: [ 'ADVL', 'ADVM', 'ADVN', 'ADVO', 'ADVP' ] },
   { name: 'DDA',  color: 'pink',  sub: [ 'DDAA', 'DDAB', 'DDAC', 'DDAD', 'DDAE' ] },

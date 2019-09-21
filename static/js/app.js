@@ -14,9 +14,9 @@ TYPE_LIST.forEach((t) => {
 
 function to_simple_format(df){
   let data = [];
-  for(let no in df.sentence){                       // loop by sentense
-    let tokens = df.pos_tag[no].map((arr, i) => {   // build tokens
-      let type = (df.done || df.pos_tag)[no][i][1]; // find type from done, pos_tag in order
+  for(let no in df.sentence){                              // loop by sentense
+    let tokens = df.pos_tag[no].map((arr, i) => {          // build tokens
+      let type = (df[MOD_COLUMN] || df.pos_tag)[no][i][1]; // find type from done, pos_tag in order
       return {
         text: arr[0],
         type: type,
