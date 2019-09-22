@@ -21,9 +21,3 @@ $('#file_json').change((evt) => {
     JSON_FILENAME = files[0].name;
   }
 });
-
-// auto-load for dev
-$.ajax({
-  url: './sample/test.json',
-  success: render_from_df,
-});

@@ -17,7 +17,7 @@
 
     <div class='container-fluid'>
       <div class='p-3 text-right'>
-        <h4 class='float-left mr-3'>POS Tagger</h4>
+        <h4 class='float-left mr-3'>--- POS Tagger ---</h4>
         <input type='file' id='file_json'>
         <input type='button' id='btn_save_as' value='Save As'>
       </div>
@@ -37,6 +37,12 @@
     <script src='./static/js/render.js'></script>
     <script src='./static/js/load.js'></script>
     <script src='./static/js/save.js'></script>
+
+    <script>
+      // play demo
+      let df = {"sentence":{"0":"สวัสดีชาวโลก","1":"วันนี้วันศุกร์","2":"ชานมไข่มุกอร่อยมาก","3":"อากาศดีสุดๆไปเลย","4":"หมอกจางๆและควัน"},"token":{"0":["สวัสดี","ชาว","โลก"],"1":["วัน","นี้","วัน","ศุกร์"],"2":["ชานม","ไข่","มุก","อร่อย","มาก"],"3":["อากาศ","ดี","สุด","ๆ","ไป","เลย"],"4":["หมอก","จาง","ๆ","และ","ควัน"]},"pos_tag":{"0":[["สวัสดี","NCMN"],["ชาว","NCMN"],["โลก","NCMN"]],"1":[["วัน","NCMN"],["นี้","DDAC"],["วัน","NCMN"],["ศุกร์","NPRP"]],"2":[["ชานม","NCMN"],["ไข่","NCMN"],["มุก","NCMN"],["อร่อย","NCMN"],["มาก","ADVN"]],"3":[["อากาศ","NCMN"],["ดี","VATT"],["สุด","ADVN"],["ๆ","PUNC"],["ไป","XVAE"],["เลย","XVAE"]],"4":[["หมอก","NCMN"],["จาง","NCMN"],["ๆ","NCMN"],["และ","JCRG"],["ควัน","NCMN"]]}};
+      render_from_df(df);
+    </script>
 
   </body>
 </html>
