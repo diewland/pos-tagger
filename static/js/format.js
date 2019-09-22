@@ -46,3 +46,7 @@ function to_df_format(data){
   df_data[MOD_COLUMN] = mod_data;
   return df_data;
 }
+
+function get_df_data(){
+  return to_df_format(DATA);
+}
