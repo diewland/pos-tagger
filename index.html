@@ -31,33 +31,10 @@
     <!-- App Script -->
     <script src='./config.js'></script>
     <script src='./static/js/app.js'></script>
-    <script>
+    <script src='./static/js/format.js'></script>
+    <script src='./static/js/render.js'></script>
+    <script src='./static/js/load.js'></script>
+    <script src='./static/js/save.js'></script>
 
-      // load dev json
-      /*
-      $.ajax({
-        url: './sample/test.json',
-        success: (df) => {
-          window.DF = df;
-          window.DATA = to_simple_format(df);
-          render(DATA);
-        },
-      });
-      */
-
-      $('#file_json').change((evt) => {
-        let files = evt.target.files;
-        if(files.length == 1){
-          let fileReader = new FileReader();
-          fileReader.onload = function(fileLoadedEvent){
-            let result = fileLoadedEvent.target.result;
-            console.log(result);
-            eval(result); // TODO
-          };
-          fileReader.readAsText(files[0], "UTF-8");
-        }
-      });
-
-    </script>
   </body>
 </html>
