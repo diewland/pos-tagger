@@ -5,6 +5,7 @@ function render_from_df(df){
 }
 
 // bind load json button
+let JSON_FILENAME = null;
 $('#file_json').change((evt) => {
   let files = evt.target.files;
   if(files.length == 1){
@@ -15,6 +16,9 @@ $('#file_json').change((evt) => {
       render_from_df(df);
     };
     fileReader.readAsText(files[0], "UTF-8");
+
+    // update loaded filename
+    JSON_FILENAME = files[0].name;
   }
 });
 
