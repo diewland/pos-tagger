@@ -40,8 +40,21 @@ function update_row(i, row){
       $item.find('.sub').val(sub_type);
       // set type color
       set_color($item, tt[0]);
+      // show mod token
+      if(token.type != token.default_type){
+        $item.addClass('mod');
+      }
     }
   });
+}
+
+function check_mod(token_data, $item){
+  if(token_data.type == token_data.default_type){
+    $item.removeClass('mod');
+  }
+  else {
+    $item.addClass('mod');
+  }
 }
 
 function render(rows){
@@ -51,7 +64,9 @@ function render(rows){
   // render template
   rows.forEach((row, i) => {
     let html = render_row(i, row);
+    let no = i+1;
     $('.output').append(`
+      <div class='no'><a name='${no}' href='#${no}'>#${no}</a></div>
       <div class='sentense'>${html}</div>
       <div class='clearfix'></div>
     `);
@@ -89,6 +104,9 @@ function render(rows){
 
     // update sub-type
     DATA[row][col].type = sub_list[0];
+
+    // show-hide mod token
+    check_mod(DATA[row][col], $item);
   });
 
   // bind sub-type combobox
@@ -105,5 +123,8 @@ function render(rows){
     // update sub-type
     let sub_type = $sub.val();
     DATA[row][col].type = sub_type;
+
+    // show-hide mod token
+    check_mod(DATA[row][col], $item);
   });
 }
